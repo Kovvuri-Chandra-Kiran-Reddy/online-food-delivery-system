@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const UserModel = require('./../models/UserModel');
+const RestaurantDetailsModel = require('../models/RestaurantDetailsModel');
 const CustomerModel = require('../models/CustomerModel');
 
 router.route('/upload').post((req, res) => {
@@ -11,7 +11,7 @@ router.route('/upload').post((req, res) => {
     const OwnerPhone = req.body.OwnerPhone;
     const OwnerPassword = req.body.hashedOwnerPassword;
     const menuItems = req.body.menuItemsSep;
-    const newData = new UserModel({
+    const newData = new RestaurantDetailsModel({
         RestaurantName, RestaurantLocation, OwnerName, OwnerEmail, OwnerPhone, OwnerPassword, menuItems
     });
 
@@ -48,7 +48,7 @@ router.route('/usercheck1').get((req, res) => {
 
 // check in resta users
 router.route('/usercheck2').get((req, res) => {
-    UserModel.find({ OwnerEmail: req.query.email }).then((err, result) => {
+    RestaurantDetailsModel.find({ OwnerEmail: req.query.email }).then((err, result) => {
         // console.log("result", req.query.email)
         if (err) {
             res.send(err)
