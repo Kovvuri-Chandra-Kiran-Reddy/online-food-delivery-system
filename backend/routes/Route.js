@@ -28,8 +28,21 @@ router.route('/newcustomer').post((req, res) => {
         CustomerName, CustomerEmail, CustomerPhone, CustomerPassword, CustomerImage
     });
 
-    newCustomerData.save();
-    res.send({ message: "success" })
+    CustomerModel.find({ CustomerEmail: req.body.email }).then((err, result) => {
+        if (err) {
+            res.send(err)
+            return
+        }
+        // console.log(result)
+        res.send(result)
+        // if (docs.length) {
+        //     res.send({ message: "Sorry email already registered.." })
+        // } else {
+        //     newCustomerData.save();
+        //     res.send({ message: "success" })
+        // }
+    })
+
 })
 
 // check in customer
@@ -49,14 +62,12 @@ router.route('/usercheck1').get((req, res) => {
 // check in resta users
 router.route('/usercheck2').get((req, res) => {
     RestaurantDetailsModel.find({ OwnerEmail: req.query.email }).then((err, result) => {
-        // console.log("result", req.query.email)
+        console.log("result", req.query.email)
         if (err) {
             res.send(err)
             return
         }
-
         res.send(result)
-
     })
 });
 
