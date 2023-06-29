@@ -28,19 +28,23 @@ router.route('/newcustomer').post((req, res) => {
         CustomerName, CustomerEmail, CustomerPhone, CustomerPassword, CustomerImage
     });
 
-    CustomerModel.find({ CustomerEmail: req.body.email }).then((err, result) => {
-        if (err) {
-            res.send(err)
-            return
-        }
-        // console.log(result)
-        newCustomerData.save();
-        res.send(result)
+    var dup = false;
+
+    CustomerModel.find({ CustomerEmail: req.body.email }).then((result) => {
+        // console.log("serverrrrrrrrrrrrrrr", result.length)
+        if (result.length > 0) dup = true;
     })
 
+    setTimeout(() => {
+        if (!dup) {
+            newCustomerData.save();
+            res.send({ message: "success" })
+        } else {
+            res.send({ message: "duplicate" })
+        }
+    }, 2000)
 })
 
-// check in customer
 router.route('/usercheck1').get((req, res) => {
     CustomerModel.find({ CustomerEmail: req.query.email }).then((err, result) => {
         // console.log("result", req.query.email)
