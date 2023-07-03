@@ -70,5 +70,15 @@ router.route('/usercheck2').get((req, res) => {
     })
 });
 
+router.route('/resdetails').get((req,res) =>{
+    RestaurantDetailsModel.find({}).then((err,result)=>{
+        if(err){
+            res.send(err)
+            return
+        }
+        res.send(result)
+    })
+})
+
 
 module.exports = router;
