@@ -1,0 +1,23 @@
+
+#abcd{
+    /* margin-top: 20px; */
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#signupdiv{
+    width: 90%;
+    padding : 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width : 540px) {
+    #signupdiv{
+        border: 2px solid black;
+    }
+}

@@ -1,0 +1,37 @@
+#abcd2 {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#logindiv {
+    width: 90%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.c {
+    text-decoration: none;
+    text-emphasis-style: none;
+}
+
+.c:hover {
+    font-size: 15px;
+    color: rgb(105, 180, 180)
+}
+
+@media screen and (max-width : 540px) {
+    #logindiv {
+        border: 2px solid black;
+        margin-top: 20px;
+    }
+
+    .c {
+        font-size: 13px;
+    }
+}
+
