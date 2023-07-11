@@ -70,15 +70,45 @@ router.route('/usercheck2').get((req, res) => {
     })
 });
 
-router.route('/resdetails').get((req,res) =>{
-    RestaurantDetailsModel.find({}).then((err,result)=>{
-        if(err){
+router.route('/resdetails').get((req, res) => {
+    RestaurantDetailsModel.find({}).then((err, result) => {
+        if (err) {
             res.send(err)
             return
         }
         res.send(result)
     })
 })
+
+router.route('/getresownerdet').get((req, res) => {
+    RestaurantDetailsModel.find({ OwnerEmail: req.query.email }).then((err, result) => {
+        if (err) {
+            res.send(err)
+            return
+        }
+        res.send(result)
+    })
+})
+
+router.route('/update').put((req, res) => {
+    const ownerEmail = req.body.OwnerEmail;
+    const updatedMenuItems = req.body.menuItems;
+
+    RestaurantDetailsModel.findOneAndUpdate(
+        { OwnerEmail: ownerEmail },
+        { $set: { menuItems: updatedMenuItems } },
+        { new: true }
+    )
+        .then((updatedRestaurant) => {
+            if (!updatedRestaurant) {
+                return res.status(404).json('Restaurant not found');
+            }
+            return res.status(200).json('Menu items updated successfully');
+        })
+        .catch((err) => {
+            res.status(400).json('Error updating menu items: ' + err);
+        });
+});
 
 
 module.exports = router;
